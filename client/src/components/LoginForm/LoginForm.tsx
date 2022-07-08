@@ -13,10 +13,16 @@ const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
 
-    const login: SubmitHandler<ILoginForm> = (data) => {
-        dispatch(loginUser(data));
-        navigation('/', {replace: true})
+    const login: SubmitHandler<ILoginForm> = async (data) => {
+        try {
+            await dispatch(loginUser(data));
+            navigation('/', {replace: true})
+        } catch (e) {
+            console.log(e);
+        }
     }
+
+
     return (
         <form onSubmit={handleSubmit(login)} className={'login__form'}>
             <label>Email: <input {...register('email')}/></label>

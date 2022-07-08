@@ -12,6 +12,10 @@ class WishlistRepository extends Repository<Wishlist> implements IWishlistReposi
     public async deleteWishlist(userId: number): Promise<DeleteResult> {
         return AppDataSource.manager.getRepository(Wishlist).delete({ userId });
     }
+
+    public async getWishlist(userId: number): Promise<IWishlist | null> {
+        return AppDataSource.manager.getRepository(Wishlist).findOne({ where: { userId } });
+    }
 }
 
 // @ts-ignore

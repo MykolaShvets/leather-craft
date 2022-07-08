@@ -12,7 +12,10 @@ class CartRepository extends Repository<Cart> implements ICartRepository {
     public async deleteCart(userId: number): Promise<DeleteResult> {
         return AppDataSource.manager.getRepository(Cart).delete({ userId });
     }
-}
 
+    public async getCart(userId: number): Promise<ICart | null> {
+        return AppDataSource.manager.getRepository(Cart).findOne({ where: { userId } });
+    }
+}
 // @ts-ignore
 export const cartRepository = new CartRepository();

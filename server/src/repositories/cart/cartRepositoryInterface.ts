@@ -4,5 +4,6 @@ import { ICart } from '../../entity';
 
 export interface ICartRepository{
     createCart(userId: number): Promise<ICart>;
-    deleteCart(userId: number): Promise<DeleteResult>
+    deleteCart(userId: number): Promise<DeleteResult>;
+    getCart(userId: number): Promise<ICart | null>;
 }

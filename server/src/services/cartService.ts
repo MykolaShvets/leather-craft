@@ -10,6 +10,11 @@ class CartService {
         const deletedCart = await cartRepository.deleteCart(userId);
         return deletedCart;
     }
+
+    public async getCart(userId: number) {
+        const cart = await cartRepository.getCart(userId);
+        return cart;
+    }
 }
 
 export const cartService = new CartService();

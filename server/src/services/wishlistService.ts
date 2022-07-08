@@ -10,6 +10,11 @@ class WishlistService {
         const deletedWishlist = await wishlistRepository.deleteWishlist(userId);
         return deletedWishlist;
     }
+
+    public async getWishlist(userId: number) {
+        const wishlist = await wishlistRepository.getWishlist(userId);
+        return wishlist;
+    }
 }
 
 export const wishlistService = new WishlistService();

@@ -21,7 +21,8 @@
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.6",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "joi": "^17.6.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
