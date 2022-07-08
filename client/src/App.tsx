@@ -9,28 +9,25 @@ import AboutPage from './pages/AboutPage/AboutPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { refreshToken } from './store/slice/userSlice';
-import { log } from 'util';
 
 function App() {
-    const {isAuth} = useAppSelector(state => state.userReducer)
+    const { isAuth } = useAppSelector((state) => state.userReducer);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
+    useNavigate();
     useEffect(() => {
-            dispatch(refreshToken())
-
-    }, [])
+        dispatch(refreshToken());
+    }, []);
 
     return (
         <Routes>
 
-            <Route path={'/'} element={<Layout/>}>
-                <Route index element={<HomePage/>}/>
-                <Route path={'/shop'} element={<ShopPage/>}/>
-                {isAuth && <Route path={'/:userId'} element={<UserPage/>}/>}
-                <Route path={'/about'} element={<AboutPage/>}/>
-                { !isAuth && <Route path={'/login'} element={<AuthPage/>}/>}
-                {!isAuth && <Route path={'/register'} element={<AuthPage/>}/>}
+            <Route path="/" element={<Layout />}>
+                <Route index element={<HomePage />} />
+                <Route path="/shop" element={<ShopPage />} />
+                {isAuth && <Route path="/:userId" element={<UserPage />} />}
+                <Route path="/about" element={<AboutPage />} />
+                { !isAuth && <Route path="/login" element={<AuthPage />} />}
+                {!isAuth && <Route path="/register" element={<AuthPage />} />}
             </Route>
         </Routes>
     );

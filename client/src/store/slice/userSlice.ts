@@ -12,74 +12,69 @@ interface IInitialState {
 const initialState: IInitialState = {
     user: null,
     isAuth: false,
-}
+};
 
 export const regNewUser = createAsyncThunk(
     'userSlice/regNewUser',
-    async (user: IUser, {dispatch}) => {
+    async (user: IUser, { dispatch }) => {
         try {
-            const {data} = await authService.registration(user);
+            const { data } = await authService.registration(user);
 
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
 
-            dispatch(SET_USER({user: data.user}))
-
-
+            dispatch(SET_USER({ user: data.user }));
         } catch (e) {
             console.log(e);
         }
-    }
+    },
 );
 
 export const loginUser = createAsyncThunk(
     'userSlice/loginUser',
-    async (user: ILoginForm, {dispatch}) => {
+    async (user: ILoginForm, { dispatch }) => {
         try {
-            const {data} = await authService.login(user);
+            const { data } = await authService.login(user);
 
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
 
-            dispatch(SET_USER({user: data.user}))
-
-
+            dispatch(SET_USER({ user: data.user }));
         } catch (e) {
             console.log(e);
         }
-    }
+    },
 );
 
 export const exitUser = createAsyncThunk(
     'userSlice/exitUser',
-    async (_, {dispatch}) => {
+    async (_, { dispatch }) => {
         try {
             await authService.logout();
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
 
-            dispatch(EXIT())
+            dispatch(EXIT());
         } catch (e) {
             console.log(e);
         }
-    }
-)
+    },
+);
 
 export const refreshToken = createAsyncThunk(
     'userSlice/refreshToken',
-    async (_, {dispatch}) => {
+    async (_, { dispatch }) => {
         try {
-            const {data} = await authService.refresh();
+            const { data } = await authService.refresh();
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
 
-            dispatch(SET_USER({user: data.user}))
+            dispatch(SET_USER({ user: data.user }));
         } catch (e) {
-            dispatch(EXIT())
+            dispatch(EXIT());
         }
-    }
-)
-
+    },
+);
 
 const userSlice = createSlice({
     name: 'userSlice',
@@ -93,9 +88,9 @@ const userSlice = createSlice({
             state.user = null;
             state.isAuth = false;
         },
-    }
+    },
 });
 
-export const userReducer = userSlice.reducer
+export const userReducer = userSlice.reducer;
 
-export const {EXIT, SET_USER} = userSlice.actions;
+export const { EXIT, SET_USER } = userSlice.actions;

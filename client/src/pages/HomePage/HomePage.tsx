@@ -3,14 +3,11 @@ import { useAppDispatch } from '../../hooks/redux';
 import { exitUser } from '../../store/slice/userSlice';
 
 const HomePage: FC = () => {
-
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const exit = () => {
-        dispatch(exitUser())
-        console.log('ddd');
-    }
-
+        dispatch(exitUser());
+    };
 
     return (
         <div>

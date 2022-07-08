@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 
-const UserPage: FC = () => {
-    return (
-        <div>
+const UserPage: FC = () => (
+    <div>
             UserPage
-        </div>
-    );
-};
+    </div>
+);
 
 export default UserPage;

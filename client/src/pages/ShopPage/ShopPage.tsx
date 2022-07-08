@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 
-const ShopPage: FC = () => {
-    return (
-        <div>
+const ShopPage: FC = () => (
+    <div>
             ShopPage
-        </div>
-    );
-};
+    </div>
+);
 
 export default ShopPage;
