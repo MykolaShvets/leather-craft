@@ -1,0 +1,36 @@
+.header{
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-bottom:1px solid #000 ;
+    background: #fff;
+    z-index: 1;
+}
+
+.header__container{
+    max-width: 1220px;
+    height: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__menu, .user__menu{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__menu_link{
+    border-bottom: 1px solid transparent;
+    padding: 5px;
+    transition: all ease .5s;
+}
+
+.header__menu_link:hover, .header__menu_link.active{
+    border-color: black;
+}
