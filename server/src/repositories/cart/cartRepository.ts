@@ -17,5 +17,5 @@ class CartRepository extends Repository<Cart> implements ICartRepository {
         return AppDataSource.manager.getRepository(Cart).findOne({ where: { userId } });
     }
 }
-// @ts-ignore
-export const cartRepository = new CartRepository();
+
+export const cartRepository = new CartRepository(Cart, AppDataSource.manager);

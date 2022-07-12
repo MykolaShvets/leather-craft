@@ -3,6 +3,7 @@ import { Column, Entity } from 'typeorm';
 import { CommonFields } from './commonFields';
 
 export interface IColor{
+    id: number;
     name: string;
 }
 

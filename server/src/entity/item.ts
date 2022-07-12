@@ -1,6 +1,11 @@
-import { Column, Entity } from 'typeorm';
+import {
+    Column, Entity, JoinColumn, ManyToMany,
+} from 'typeorm';
 
 import { CommonFields } from './commonFields';
+import { Color } from './color';
+import { Material } from './material';
+import { Category } from './category';
 
 export interface IItem{
     id: number;
@@ -12,9 +17,9 @@ export interface IItem{
     amount: number;
     height: number;
     width: number;
-    colorId: number;
-    materialId: number;
-    categoryId: number;
+    colorId: number[];
+    materialId: number[];
+    categoryId: number[];
 }
 
 @Entity('items', { database: 'leather_craft' })
@@ -73,16 +78,31 @@ export class Item extends CommonFields implements IItem {
 
     @Column({
         type: 'int',
+        array: true,
     })
-        colorId: number;
+        colorId: number[];
 
     @Column({
         type: 'int',
+        array: true,
     })
-        materialId: number;
+        materialId: number[];
 
     @Column({
         type: 'int',
+        array: true,
     })
-        categoryId: number;
+        categoryId: number[];
+
+    @ManyToMany(() => Color)
+    @JoinColumn({ name: 'colorId' })
+        colors: Color[];
+
+    @ManyToMany(() => Material)
+    @JoinColumn({ name: 'materialId' })
+        material: Material[];
+
+    @ManyToMany(() => Category)
+    @JoinColumn({ name: 'categoryId' })
+        category: Category[];
 }

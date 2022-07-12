@@ -3,3 +3,7 @@ export * from './authService';
 export * from './userService';
 export * from './cartService';
 export * from './wishlistService';
+export * from './categoryService';
+export * from './colorService';
+export * from './materialService';
+export * from './itemService';

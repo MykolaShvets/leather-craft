@@ -3,6 +3,7 @@ import { Column, Entity } from 'typeorm';
 import { CommonFields } from './commonFields';
 
 export interface ICategory{
+    id: number;
     name: string;
 }
 

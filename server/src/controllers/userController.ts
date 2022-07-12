@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { DeleteResult } from 'typeorm';
 
 import { IUser } from '../entity';
 import {
@@ -36,7 +37,8 @@ class UserController {
 
     public async updateById(req: IRequestExtendet, res: Response): Promise<Response<IUser>> {
         const { role } = req.user as IUser;
-        let changedData;
+        let changedData = req.body;
+
         if (role !== 'admin') {
             changedData = { ...req.body, role: 'user' };
         }
@@ -45,16 +47,19 @@ class UserController {
         return res.json(updatedUser);
     }
 
-    public async deleteById(req: IRequestExtendet, res: Response): Promise<Response<any>> {
+    public async deleteById(req: IRequestExtendet, res: Response): Promise<Response<DeleteResult>> {
         const { role, id } = req.user as IUser;
         const deletedUserId = +req.params.id;
+
         if (role !== 'admin' && id !== deletedUserId) {
             return res.json('You can delete only your profile');
         }
+
         const deletedUser = await userService.deleteById(deletedUserId);
         await cartService.deleteCart(deletedUserId);
         await wishlistService.deleteWishlist(deletedUserId);
         await tokenService.deleteUserTokenPair(deletedUserId);
+
         return res.json(deletedUser);
     }
 }
