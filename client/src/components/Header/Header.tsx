@@ -1,25 +1,19 @@
-import React, { FC, useState } from 'react';
+/* eslint-disable max-len */
+import React, { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { useAppSelector } from '../../hooks/redux';
 
 import './Header.css';
-// import MobileMenu from '../MobileMenu/MobileMenu';
 
 const Header: FC = () => {
     const { isAuth, user } = useAppSelector((state) => state.userReducer);
-    const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
 
     return (
         <header className="header">
             <div className="header__container">
-                <div className="header__menu_mobile">
-                    <button onClick={() => setIsMobileMenu(!isMobileMenu)}>{isMobileMenu ? 'Close' : 'Menu'}</button>
-                    {/* eslint-disable-next-line max-len */}
-                    {/* <div className={isMobileMenu ? 'visible' : 'invisible'} onClick={() => setIsMobileMenu(!isMobileMenu)}> */}
-                    {/*    <MobileMenu /> */}
-                    {/* </div> */}
-                </div>
                 <nav>
                     <ul className="header__menu">
                         <li><NavLink to="/" className="header__menu_link">Home</NavLink></li>
@@ -34,13 +28,15 @@ const Header: FC = () => {
                     ? (
                         <ul className="user__menu">
                             <li>
-                                <button>{user?.firstName}</button>
+                                <div>
+                                    <FontAwesomeIcon icon={faUser} />  {user?.firstName}
+                                </div>
                             </li>
                             <li>
-                                <button>Cart</button>
+                                <div><FontAwesomeIcon icon={faCartShopping} /> </div>
                             </li>
                             <li>
-                                <button>Wish List</button>
+                                <div> <FontAwesomeIcon icon={faHeart} /> </div>
                             </li>
                         </ul>
                     )
