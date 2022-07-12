@@ -13,8 +13,8 @@ const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
 
-    const login: SubmitHandler<ILoginForm> = (data) => {
-        dispatch(loginUser(data));
+    const login: SubmitHandler<ILoginForm> = async (data) => {
+        await dispatch(loginUser(data));
         navigation('/', { replace: true });
     };
 
