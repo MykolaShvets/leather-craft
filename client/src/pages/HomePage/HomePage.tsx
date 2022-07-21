@@ -1,20 +1,10 @@
 import React, { FC } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
-import { exitUser } from '../../store/slice/userSlice';
 
-const HomePage: FC = () => {
-    const dispatch = useAppDispatch();
-
-    const exit = () => {
-        dispatch(exitUser());
-    };
-
-    return (
-        <div>
+const HomePage: FC = () => (
+    <div>
             HomePage
-            <button onClick={() => exit()}>Exit</button>
-        </div>
-    );
-};
+
+    </div>
+);
 
 export default HomePage;

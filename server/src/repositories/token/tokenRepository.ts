@@ -5,7 +5,7 @@ import { ITokenDataToSave } from '../../interfaces';
 import { AppDataSource } from '../../data-source';
 import { ITokenRepository } from './tokenRepositoryInterface';
 
-class TokenRepository extends Repository<Token> implements ITokenRepository{
+class TokenRepository extends Repository<Token> implements ITokenRepository {
     public async createToken(token: ITokenDataToSave): Promise<IToken> {
         return AppDataSource.manager.getRepository(Token).save(token);
     }

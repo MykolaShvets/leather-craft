@@ -1,5 +1,6 @@
 *, *::before, *::after{
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 body{
@@ -19,4 +20,23 @@ a{
 
 input:focus-visible{
   outline: none;
+}
+button {
+  color: inherit;
+  background: #fff;
+  border-radius: 0;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+textarea{
+  resize: none;
+}
+
+.input__error{
+  font-size: 12px;
+  font-weight: 600;
+  color: red;
+  padding: 0;
+  margin: 0;
 }

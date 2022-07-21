@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-import { config } from './configs/config';
+import { config } from './configs';
 
 const {
     DB_NAME, DB_HOST, DB_SCHEMA, DB_USERNAME, DB_PASSWORD,

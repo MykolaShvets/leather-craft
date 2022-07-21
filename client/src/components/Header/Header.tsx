@@ -1,15 +1,18 @@
-/* eslint-disable max-len */
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { useAppSelector } from '../../hooks/redux';
 
 import './Header.css';
+import Modal from '../Modal/Modal';
+import CartPage from '../../pages/CartPage/CartPage';
+import WishlistPage from '../../pages/WishlistPage/WishlistPage';
 
 const Header: FC = () => {
     const { isAuth, user } = useAppSelector((state) => state.userReducer);
+
+    const [cartModal, setCartModal] = useState<boolean>(false);
+    const [wishlistModal, setWishlistModal] = useState<boolean>(false);
 
     return (
         <header className="header">
@@ -28,15 +31,17 @@ const Header: FC = () => {
                     ? (
                         <ul className="user__menu">
                             <li>
-                                <div>
-                                    <FontAwesomeIcon icon={faUser} />  {user?.firstName}
-                                </div>
+                                <button onClick={() => setCartModal(true)}>Cart</button>
+                                <Modal active={cartModal} setActive={setCartModal}><CartPage /></Modal>
                             </li>
                             <li>
-                                <div><FontAwesomeIcon icon={faCartShopping} /> </div>
+                                <button onClick={() => setWishlistModal(true)}>Wishlist</button>
+                                <Modal active={wishlistModal} setActive={setWishlistModal}><WishlistPage /></Modal>
                             </li>
                             <li>
-                                <div> <FontAwesomeIcon icon={faHeart} /> </div>
+                                <Link to={`${user?.id}`}>
+                                    Hello, {user?.firstName}
+                                </Link>
                             </li>
                         </ul>
                     )

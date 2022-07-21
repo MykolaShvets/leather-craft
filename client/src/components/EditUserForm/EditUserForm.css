@@ -1,0 +1,13 @@
+.edit-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    background: #fff;
+    padding: 40px;
+}
+
+.edit-user label{
+    display: flex;
+    flex-direction: column;
+}

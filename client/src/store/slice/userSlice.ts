@@ -3,6 +3,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../../interfaces/userInterface';
 import { authService } from '../../services/authService';
 import { ILoginForm } from '../../interfaces/loginInterface';
+import { IUserForm } from '../../interfaces/userFormInterface';
+import { userService } from '../../services/userService';
 
 interface IInitialState {
     user: IUser | null;
@@ -20,8 +22,8 @@ export const regNewUser = createAsyncThunk(
         try {
             const { data } = await authService.registration(user);
 
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
+            await localStorage.setItem('accessToken', data.accessToken);
+            await localStorage.setItem('refreshToken', data.refreshToken);
 
             dispatch(SET_USER({ user: data.user }));
         } catch (e) {
@@ -36,8 +38,8 @@ export const loginUser = createAsyncThunk(
         try {
             const { data } = await authService.login(user);
 
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
+            await localStorage.setItem('accessToken', data.accessToken);
+            await localStorage.setItem('refreshToken', data.refreshToken);
 
             dispatch(SET_USER({ user: data.user }));
         } catch (e) {
@@ -51,8 +53,9 @@ export const exitUser = createAsyncThunk(
     async (_, { dispatch }) => {
         try {
             await authService.logout();
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+
+            await localStorage.removeItem('accessToken');
+            await localStorage.removeItem('refreshToken');
 
             dispatch(EXIT());
         } catch (e) {
@@ -72,6 +75,18 @@ export const refreshToken = createAsyncThunk(
             dispatch(SET_USER({ user: data.user }));
         } catch (e) {
             dispatch(EXIT());
+        }
+    },
+);
+
+export const updateUser = createAsyncThunk<void, {user: IUserForm, id: number}>(
+    'userSlice/updateUser',
+    async ({ user, id }, { dispatch }) => {
+        try {
+            await userService.updateById(user, id);
+            dispatch(refreshToken());
+        } catch (e) {
+            console.log(e);
         }
     },
 );

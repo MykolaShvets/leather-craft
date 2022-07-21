@@ -12,8 +12,8 @@ class ItemRepository extends Repository<Item> implements IItemRepository {
 
     public async getAll(): Promise<IItem[] | null> {
         return AppDataSource.manager
-            .getRepository(Item)
-            .find();
+            .getRepository(Item).createQueryBuilder('item')
+            .getMany();
     }
 
     public async getById(id: number): Promise<IItem | null> {

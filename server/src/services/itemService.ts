@@ -1,6 +1,6 @@
+import { UpdateResult } from 'typeorm';
 import { IItem } from '../entity';
 import { itemRepository } from '../repositories';
-import { UpdateResult } from 'typeorm';
 
 class ItemService {
     public async createItem(item: IItem):Promise<IItem> {

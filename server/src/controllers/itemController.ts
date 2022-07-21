@@ -1,6 +1,6 @@
 import { Response } from 'express';
-
 import { DeleteResult } from 'typeorm';
+
 import { IRequestExtendet } from '../interfaces';
 import { IItem, IUser } from '../entity';
 import { itemService } from '../services';
@@ -21,10 +21,10 @@ class ItemController {
         }
     }
 
-    public async getAll(res: Response): Promise<Response<IItem[] | null>> {
+    public async getAll(req:IRequestExtendet, res: Response): Promise<Response<IItem[] | null>> {
         try {
-            const items = await itemService.getAll();
-            return res.json(items);
+            const allItems = await itemService.getAll();
+            return res.json(allItems);
         } catch (e) {
             return res.status(400).json(e);
         }
