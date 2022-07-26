@@ -32,8 +32,9 @@ class ItemController {
 
     public async getById(req: IRequestExtendet, res: Response): Promise<Response<IItem>> {
         try {
-            const itemId = +req.params;
-            const item = await itemService.getById(itemId);
+            const itemId = req.params.id;
+            console.log(itemId);
+            const item = await itemService.getById(+itemId);
             return res.json(item);
         } catch (e) {
             return res.status(400).json(e);
@@ -48,7 +49,7 @@ class ItemController {
                 throw new Error('You are not admin!!!');
             }
 
-            const itemId = +req.params;
+            const itemId = +req.params.id;
             const updatedItem = await itemService.updateById(req.body, itemId);
             return res.json(updatedItem);
         } catch (e) {
@@ -64,7 +65,7 @@ class ItemController {
                 throw new Error('You are not admin!!!');
             }
 
-            const itemId = +req.params;
+            const itemId = +req.params.id;
             const deletedItem = await itemService.deleteById(itemId);
             return res.json(deletedItem);
         } catch (e) {

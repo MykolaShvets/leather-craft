@@ -21,6 +21,7 @@ import UserControlPage from './pages/UserControlPage/UserControlPage';
 import AnalyticsPage from './pages/AnalyticsPage/AnalyticsPage';
 import NewsControlPage from './pages/NewsControlPage/NewsControlPage';
 import Loader from './components/Loader/Loader';
+import ItemPage from './pages/ItemPage/ItemPage';
 
 function App() {
     const { isAuth, user } = useAppSelector((state) => state.userReducer);
@@ -48,34 +49,38 @@ function App() {
     }, []);
     return (
         <div>
-            {isLoading && <Loader />}
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="/shop" element={<ShopPage />} />
-                    {isAuth && (
-                        <Route path="/:userId" element={<UserPage />}>
-                            <Route index element={<ProfilePage />} />
-                            <Route path="cart" element={<CartPage />} />
-                            <Route path="wishlist" element={<WishlistPage />} />
-                            <Route path="orders" element={<OrdersPage />} />
-                            <Route path="rates" element={<RatePage />} />
-                            <Route path="comments" element={<CommentsPage />} />
-                            {user?.role === 'admin' && (
-                                <>
-                                    <Route path="items" element={<ItemControlPage />} />
-                                    <Route path="users" element={<UserControlPage />} />
-                                    <Route path="news" element={<NewsControlPage />} />
-                                    <Route path="analytics" element={<AnalyticsPage />} />
-                                </>
+            {isLoading ? <Loader />
+                : (
+                    <Routes>
+                        <Route path="/" element={<Layout />}>
+                            <Route index element={<HomePage />} />
+                            <Route path="/shop" element={<ShopPage />} />
+                            <Route path="/items/:itemId" element={<ItemPage />} />
+                            {isAuth && (
+                                <Route path="/:userId" element={<UserPage />}>
+                                    <Route index element={<ProfilePage />} />
+                                    <Route path="cart" element={<CartPage />} />
+                                    <Route path="wishlist" element={<WishlistPage />} />
+                                    <Route path="orders" element={<OrdersPage />} />
+                                    <Route path="rates" element={<RatePage />} />
+                                    <Route path="comments" element={<CommentsPage />} />
+                                    {user?.role === 'admin' && (
+                                        <>
+                                            <Route path="items" element={<ItemControlPage />} />
+                                            <Route path="users" element={<UserControlPage />} />
+                                            <Route path="news" element={<NewsControlPage />} />
+                                            <Route path="analytics" element={<AnalyticsPage />} />
+                                        </>
+                                    )}
+                                </Route>
                             )}
+                            <Route path="/about" element={<AboutPage />} />
+                            { !isAuth && <Route path="/login" element={<AuthPage />} />}
+                            {!isAuth && <Route path="/register" element={<AuthPage />} />}
                         </Route>
-                    )}
-                    <Route path="/about" element={<AboutPage />} />
-                    { !isAuth && <Route path="/login" element={<AuthPage />} />}
-                    {!isAuth && <Route path="/register" element={<AuthPage />} />}
-                </Route>
-            </Routes>
+                    </Routes>
+                )}
+
         </div>
     );
 }

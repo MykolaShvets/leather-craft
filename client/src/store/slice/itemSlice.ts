@@ -5,19 +5,19 @@ import { itemPropsService } from '../../services/itemPropsService';
 import { itemService } from '../../services/itemService';
 
 interface IInitialState {
-    items: IItem[] | null;
+    items: IItem[];
     item: IItem | null;
-    colors: IItemProps[] | null;
-    materials: IItemProps[] | null;
-    categories: IItemProps[] | null;
+    colors: IItemProps[];
+    materials: IItemProps[];
+    categories: IItemProps[];
 }
 
 const initialState: IInitialState = {
-    items: null,
+    items: [],
     item: null,
-    categories: null,
-    materials: null,
-    colors: null,
+    categories: [],
+    materials: [],
+    colors: [],
 };
 
 export const getItemProps = createAsyncThunk(
@@ -49,6 +49,30 @@ export const createNewItem = createAsyncThunk<void, IItem>(
     },
 );
 
+export const getAllItems = createAsyncThunk(
+    'itemSlice/getAllItems',
+    async (_, { dispatch }) => {
+        try {
+            const { data } = await itemService.getAll();
+            dispatch(SET_ITEMS({ items: data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
+export const getCurrentItem = createAsyncThunk(
+    'itemSlice/getCurrentItem',
+    async (id: number, { dispatch }) => {
+        try {
+            const { data } = await itemService.getById(id);
+            dispatch(SET_ITEM({ item: data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
 const itemSlice = createSlice({
     name: 'itemSlice',
     initialState,
@@ -61,13 +85,15 @@ const itemSlice = createSlice({
             state.materials = actions.payload.materials;
             state.categories = actions.payload.categories;
         },
-
         SET_ITEMS: (state, actions: PayloadAction<{items: IItem[]}>) => {
             state.items = actions.payload.items;
+        },
+        SET_ITEM: (state, actions: PayloadAction<{item: IItem}>) => {
+            state.item = actions.payload.item;
         },
     },
 });
 
 export const itemReducer = itemSlice.reducer;
 
-export const { SET_ITEM_PROPS, SET_ITEMS } = itemSlice.actions;
+export const { SET_ITEM_PROPS, SET_ITEMS, SET_ITEM } = itemSlice.actions;

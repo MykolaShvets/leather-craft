@@ -1,0 +1,71 @@
+
+.item__card{
+    padding: 10px;
+    border: 1px solid #000;
+    margin: 5px;
+    width: 300px;
+    height: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.item__card.sale::before{
+    content: '%SALE%';
+    position: absolute;
+    transform:rotate(-45deg);
+    left: 50px;
+    top: 50px;
+    font-size: 18px;
+    font-weight: 800;
+    color: red;
+}
+
+.item__card img{
+    width: 200px;
+    height: 200px;
+}
+
+.item__card_price{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.item__price_full {
+    color: rgba(119, 136, 153, 0.63);
+    position: relative;
+}
+
+.item__price_full::before{
+    content: '';
+    width: 120%;
+    height: 2px;
+    background: lightslategray;
+    position: absolute;
+    left: -10%;
+    bottom: 50%;
+    transform: rotate(-20deg);
+}
+
+.item__price_full::after{
+    content: '';
+    width: 120%;
+    height: 2px;
+    background: lightslategray;
+    position: absolute;
+    left: -10%;
+    bottom: 50%;
+    transform: rotate(20deg);
+}
+
+.item__card_btns{
+    display: flex;
+    gap: 10px;
+}
