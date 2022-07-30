@@ -11,6 +11,10 @@ class MaterialRepository extends Repository<Material> implements IMaterialReposi
             .find();
     }
 
+    public async getById(id: number): Promise<IMaterial | null> {
+        return AppDataSource.manager.getRepository(Material).findOne({ where: { id } });
+    }
+
     public async createMaterial(material: IMaterial): Promise<IMaterial> {
         return AppDataSource.manager
             .getRepository(Material)

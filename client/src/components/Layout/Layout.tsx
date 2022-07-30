@@ -1,17 +1,20 @@
 import React, { FC } from 'react';
+import { Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 import Header from '../Header/Header';
 
-import './Layout.css';
-
 const Layout: FC = () => (
-    <div>
-        <Header />
-        <main className="main">
-            <Outlet />
-        </main>
-    </div>
+    <Container disableGutters maxWidth={false}>
+        <header>
+            <Header />
+        </header>
+        <Container maxWidth="lg" sx={{ paddingTop: '90px' }}>
+            <main>
+                <Outlet />
+            </main>
+        </Container>
+    </Container>
 );
 
 export default Layout;

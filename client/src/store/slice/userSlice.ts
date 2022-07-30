@@ -91,6 +91,22 @@ export const updateUser = createAsyncThunk<void, {user: IUserForm, id: number}>(
     },
 );
 
+export const deleteUser = createAsyncThunk(
+    'userSlice/deleteUser',
+    async (id: number, { dispatch }) => {
+        try {
+            await userService.deleteById(id);
+
+            await localStorage.removeItem('accessToken');
+            await localStorage.removeItem('refreshToken');
+
+            dispatch(EXIT());
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
 const userSlice = createSlice({
     name: 'userSlice',
     initialState,

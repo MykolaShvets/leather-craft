@@ -14,3 +14,7 @@ export * from './materials/materialRepository';
 export * from './materials/materialRepositoryInterface';
 export * from './item/itemRepository';
 export * from './item/itemRepositoryInterface';
+export * from './cartItem/cartItemRepository';
+export * from './cartItem/cartItemRepositoryInterface';
+export * from './wishlistItem/wishlistItemRepository';
+export * from './wishlistItem/wishlistItemRepositoryInterface';

@@ -15,6 +15,16 @@ class MaterialController {
         }
     }
 
+    public async getById(req: Request, res: Response): Promise<Response<IMaterial>> {
+        try {
+            const { id } = req.params;
+            const material = await materialService.getById(+id);
+            return res.json(material);
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    }
+
     public async createMaterial(req: IRequestExtendet, res: Response): Promise<Response<IMaterial>> {
         try {
             const { role } = req.user as IUser;

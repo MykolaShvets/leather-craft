@@ -11,6 +11,10 @@ class ColorRepository extends Repository<Color> implements IColorRepository {
             .find();
     }
 
+    public async getById(id: number): Promise<IColor | null> {
+        return AppDataSource.manager.getRepository(Color).findOne({ where: { id } });
+    }
+
     public async createColor(color: IColor): Promise<IColor> {
         return AppDataSource.manager
             .getRepository(Color)

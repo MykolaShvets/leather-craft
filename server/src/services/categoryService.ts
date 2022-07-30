@@ -7,11 +7,15 @@ class CategoryService {
         return categories;
     }
 
+    public async getById(id: number) {
+        const category = await categoryRepository.getById(id);
+        return category;
+    }
+
     public async createCategory(category: ICategory) {
         const newCategory = await categoryRepository.createCategory(category);
         return newCategory;
     }
-
     public async updateById(category: ICategory, id: number) {
         const updatedCategory = await categoryRepository.updateById(category, id);
         return updatedCategory;
@@ -21,6 +25,7 @@ class CategoryService {
         const deletedCategory = await categoryRepository.deleteById(id);
         return deletedCategory;
     }
+
 }
 
 export const categoryService = new CategoryService();

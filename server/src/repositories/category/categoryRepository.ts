@@ -11,6 +11,10 @@ class CategoryRepository extends Repository<Category> implements ICategoryReposi
             .find();
     }
 
+    public async getById(id: number):Promise<ICategory | null> {
+        return AppDataSource.manager.getRepository(Category).findOne({ where: { id } });
+    }
+
     public async createCategory(category: ICategory): Promise<ICategory> {
         return AppDataSource.manager
             .getRepository(Category)

@@ -15,6 +15,16 @@ class CategoryController {
         }
     }
 
+    public async getById(req: Request, res: Response): Promise<Response<ICategory>>{
+        try{
+            const { id } = req.params;
+            const category = await categoryService.getById(+id);
+            return res.json(category);
+        }catch (e) {
+            return res.status(400).json(e);
+        }
+    }
+
     public async createCategory(req: IRequestExtendet, res: Response): Promise<Response<ICategory>> {
         try {
             const { role } = req.user as IUser;

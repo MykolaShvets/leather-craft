@@ -1,9 +1,13 @@
-import { Column, Entity } from 'typeorm';
+import {
+    Column, Entity, JoinColumn, ManyToOne,
+} from 'typeorm';
 
 import { CommonFields } from './commonFields';
+import { Cart } from './cart';
+import { Item } from './item';
 
 export interface ICartItem{
-    userId: number;
+    cartId: number;
     itemId: number;
 }
 
@@ -12,10 +16,18 @@ export class CartItem extends CommonFields implements ICartItem {
     @Column({
         type: 'int',
     })
-        userId: number;
+        cartId: number;
 
     @Column({
         type: 'int',
     })
         itemId: number;
+
+    @ManyToOne(() => Cart)
+    @JoinColumn({ name: 'cartId' })
+        cart: Cart;
+
+    @ManyToOne(() => Item)
+    @JoinColumn({ name: 'itemId' })
+        item: Item;
 }

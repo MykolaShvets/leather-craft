@@ -15,6 +15,17 @@ class ColorController {
         }
     }
 
+    public async getById(req: Request, res: Response): Promise<Response<IColor>> {
+        try {
+            const { id } = req.params;
+
+            const color = await colorService.getById(+id);
+            return res.json(color);
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    }
+
     public async createColor(req: IRequestExtendet, res: Response): Promise<Response<IColor>> {
         try {
             const { role } = req.user as IUser;

@@ -7,6 +7,11 @@ class ColorService {
         return colors;
     }
 
+    public async getById(id: number) {
+        const color = await colorRepository.getById(id);
+        return color;
+    }
+
     public async createColor(color: IColor) {
         const newColor = await colorRepository.createColor(color);
         return newColor;

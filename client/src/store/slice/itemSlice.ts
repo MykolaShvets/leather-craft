@@ -10,6 +10,11 @@ interface IInitialState {
     colors: IItemProps[];
     materials: IItemProps[];
     categories: IItemProps[];
+    currentProps: {
+        category: IItemProps | null;
+        color: IItemProps | null;
+        material: IItemProps | null;
+    }
 }
 
 const initialState: IInitialState = {
@@ -18,6 +23,11 @@ const initialState: IInitialState = {
     categories: [],
     materials: [],
     colors: [],
+    currentProps: {
+        category: null,
+        color: null,
+        material: null,
+    },
 };
 
 export const getItemProps = createAsyncThunk(
@@ -28,6 +38,21 @@ export const getItemProps = createAsyncThunk(
             const materials = await itemPropsService.getAllMaterials();
             const categories = await itemPropsService.getAllCategories();
             dispatch(SET_ITEM_PROPS({ colors: colors.data, materials: materials.data, categories: categories.data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
+export const getCurrentProps = createAsyncThunk<void, {categoryId: number, colorId: number, materialId: number}>(
+    'itemSlice/getCurrentProps',
+    async ({ categoryId, colorId, materialId }, { dispatch }) => {
+        try {
+            const color = await itemPropsService.getColorById(colorId);
+            const material = await itemPropsService.getMaterialById(materialId);
+            const category = await itemPropsService.getCategoryById(categoryId);
+
+            dispatch(SET_CURRENT_PROPS({ color: color.data, category: category.data, material: material.data }));
         } catch (e) {
             console.log(e);
         }
@@ -85,6 +110,14 @@ const itemSlice = createSlice({
             state.materials = actions.payload.materials;
             state.categories = actions.payload.categories;
         },
+        SET_CURRENT_PROPS: (
+            state,
+            actions:PayloadAction<{color: IItemProps, material: IItemProps, category: IItemProps}>,
+        ) => {
+            state.currentProps.color = actions.payload.color;
+            state.currentProps.category = actions.payload.category;
+            state.currentProps.material = actions.payload.material;
+        },
         SET_ITEMS: (state, actions: PayloadAction<{items: IItem[]}>) => {
             state.items = actions.payload.items;
         },
@@ -96,4 +129,6 @@ const itemSlice = createSlice({
 
 export const itemReducer = itemSlice.reducer;
 
-export const { SET_ITEM_PROPS, SET_ITEMS, SET_ITEM } = itemSlice.actions;
+export const {
+    SET_ITEM_PROPS, SET_CURRENT_PROPS, SET_ITEMS, SET_ITEM,
+} = itemSlice.actions;

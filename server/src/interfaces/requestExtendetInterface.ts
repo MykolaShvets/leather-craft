@@ -1,7 +1,12 @@
 import { Request } from 'express';
 
-import { IUser } from '../entity';
+import {
+    ICart, IItem, IUser, IWishlist,
+} from '../entity';
 
 export interface IRequestExtendet extends Request{
-    user?: IUser
+    user?: IUser;
+    cart?: ICart;
+    wishlist?: IWishlist;
+    item?: IItem;
 }

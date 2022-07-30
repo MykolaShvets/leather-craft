@@ -5,6 +5,7 @@ import { authMiddleware } from '../middlewares';
 const router = Router();
 
 router.get('/', categoryController.getAll);
+router.get('/:id', categoryController.getById);
 router.post('/', authMiddleware.checkAccessToken, categoryController.createCategory);
 router.patch('/:id', authMiddleware.checkAccessToken, categoryController.updateById);
 router.delete('/:id', authMiddleware.checkAccessToken, categoryController.deleteById);

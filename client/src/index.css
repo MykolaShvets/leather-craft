@@ -1,6 +1,5 @@
 *, *::before, *::after{
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body{
@@ -13,33 +12,7 @@ p, h1, h2, h3, h4, h5, h6{
   padding: 0;
 }
 
-ul{
-  list-style: none;
-  padding-inline-start: 0;
-}
-
 a{
   text-decoration: none;
   color: inherit;
-}
-
-input:focus-visible{
-  outline: none;
-}
-button {
-  color: inherit;
-  background: #fff;
-  border-radius: 0;
-  font-size: inherit;
-  cursor: pointer;
-}
-
-textarea{
-  resize: none;
-}
-
-.input__error{
-  font-size: 12px;
-  font-weight: 600;
-  color: red;
 }

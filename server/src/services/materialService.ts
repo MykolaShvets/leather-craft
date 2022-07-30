@@ -7,6 +7,11 @@ class MaterialService {
         return materials;
     }
 
+    public async getById(id: number) {
+        const material = await materialRepository.getById(id);
+        return material;
+    }
+
     public async createMaterial(material: IMaterial) {
         const newMaterial = await materialRepository.createMaterial(material);
         return newMaterial;
@@ -21,6 +26,7 @@ class MaterialService {
         const deletedMaterial = await materialRepository.deleteById(id);
         return deletedMaterial;
     }
+
 }
 
 export const materialService = new MaterialService();

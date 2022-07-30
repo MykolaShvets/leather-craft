@@ -1,7 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
+import {
+    Box,
+    Card, CardActions, CardContent, CardMedia, Divider, IconButton, Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+
+import { Add, Favorite, ShoppingCart } from '@mui/icons-material';
 import { IItem } from '../../interfaces/itemInterface';
-import './ItemCard.css';
 import { IItemProps } from '../../interfaces/itemPropertiesInterface';
 
 interface IAllItemProps {
@@ -24,30 +29,44 @@ const ItemCard: FC<{item: IItem, itemProps:IAllItemProps}> = ({ item, itemProps 
     }, [categories, colors, materials]);
 
     return (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-            {item
-                && itemProps
-                && (
-                    <div className={item.sale > 0 ? 'item__card sale' : 'item__card'}>
-                        <Link to={`/items/${item.id}`}>
-                            <img src={item.imageUrl} alt="item" />
-                            <h2 className="item__card_title"> {item.name}</h2>
-                            <div className="item__card_price">
-                                <p className="item__price_current">{item.price - (item.price * (item.sale / 100))}</p>
-                                { (item.sale > 0) && <p className="item__price_full">{item.price}</p>}
-                            </div>
-                            <p className="item__card_category">Category: {category && category.name}</p>
-                            <p className="item__card_color">Color: {color && color.name}</p>
-                            <p className="item__card_materials">Material: {material && material.name}</p>
-                        </Link>
-                        <div className="item__card_btns">
-                            <button>Add to cart</button>
-                            <button>Add to wishlist</button>
-                        </div>
-                    </div>
-                )}
-        </>
+        <Card sx={{ width: '250px', height: '350px', position: 'relative' }}>
+            {item.sale > 0 && (
+                <Typography
+                    sx={{
+                        position: 'absolute', top: '0', right: '0', p: 1, bgcolor: 'red', borderRadius: '50%',
+                    }}
+                    fontWeight="bold"
+                    color="#fff"
+                >
+                    %SALE%
+                </Typography>
+            )}
+            <Link to={`/items/${item.id}`} state={{ category, color, material }}>
+                <CardMedia
+                    component="img"
+                    height="160px"
+                    image={item.imageUrl}
+                />
+                <CardContent sx={{ p: '5px' }}>
+                    <Typography variant="h5">{item.name}</Typography>
+                    <Divider />
+                    <Typography fontSize="13px">Category: {category && category.name};</Typography>
+                    <Typography fontSize="13px">Color: {color && color.name};</Typography>
+                    <Typography fontSize="13px">Material: {material && material.name};</Typography>
+                    <Divider />
+                    <Box sx={{ display: 'flex', gap: '20px' }}>
+                        <Typography color="red" fontWeight="bold">{item.price - (item.price * (item.sale / 100))} USD</Typography>
+                        {item.sale > 0 && <Typography sx={{ textDecorationLine: 'line-through' }}>{item.price} USD</Typography>}
+                    </Box>
+                </CardContent>
+            </Link>
+            <Divider />
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', p: '0px' }}>
+                <IconButton><Add /><ShoppingCart /></IconButton>
+                <IconButton><Favorite /></IconButton>
+            </CardActions>
+        </Card>
     );
 };
 export default ItemCard;
+
