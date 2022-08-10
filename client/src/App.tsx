@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { refreshToken } from './store/slice/userSlice';
+import { getAllCartItems } from './store/slice/cartSlice';
+import { getAllWishlistItems } from './store/slice/wishlistSlice';
 
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
@@ -28,23 +30,25 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        const checkToken = async (): Promise<void> => {
-            try {
-                setIsLoading(true);
-                const localRefreshToken = localStorage.getItem('refreshToken');
-                if (!localRefreshToken) {
-                    setIsLoading(false);
-                    return;
-                }
-                await dispatch(refreshToken());
-            } catch (e) {
-                console.log(e);
-            } finally {
+    const checkToken = async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            const localRefreshToken = localStorage.getItem('refreshToken');
+            if (!localRefreshToken) {
                 setIsLoading(false);
+                return;
             }
-        };
+            await dispatch(refreshToken());
+            await dispatch(getAllCartItems());
+            await dispatch(getAllWishlistItems());
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
+    useEffect(() => {
         checkToken();
     }, []);
     return (

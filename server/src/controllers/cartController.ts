@@ -32,8 +32,7 @@ class CartController {
     public async getCartItems(req: IRequestExtendet, res: Response): Promise<Response<ICartItem[] | null>> {
         try {
             const { id } = req.cart as ICart;
-            const cartItems = cartService.getCartItems(id);
-
+            const cartItems = await cartService.getCartItems(id);
             return res.json(cartItems);
         } catch (e) {
             return res.status(400).json(e);

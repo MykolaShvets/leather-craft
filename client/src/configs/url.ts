@@ -7,4 +7,6 @@ export const urls = {
     materials: '/materials',
     categories: '/categories',
     items: '/items',
+    carts: '/carts',
+    wishlists: '/wishlists',
 };

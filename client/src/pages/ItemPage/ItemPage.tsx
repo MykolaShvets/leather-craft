@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import {
-    Box, Divider, IconButton, Paper, Typography,
+    Box, Divider, Paper, Typography,
 } from '@mui/material';
-import { Add, Favorite, ShoppingCart } from '@mui/icons-material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCurrentItem, getCurrentProps } from '../../store/slice/itemSlice';
+import ItemActionBtns from '../../components/ItemActionBtns/ItemActionBtns';
 
 const ItemPage: FC = () => {
     const {
@@ -84,10 +84,7 @@ const ItemPage: FC = () => {
                                 && <Typography sx={{ textDecorationLine: 'line-through' }}>{item.price} USD</Typography>}
                         </Box>
                         <Divider />
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', p: '0px' }}>
-                            <IconButton><Add /><ShoppingCart /></IconButton>
-                            <IconButton><Favorite /></IconButton>
-                        </Box>
+                        <ItemActionBtns itemId={item.id as number} />
                     </Paper>
                 </Box>
             )}

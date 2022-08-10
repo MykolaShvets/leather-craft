@@ -12,12 +12,12 @@ router.get(
     wishlistController.getWishlistItems,
 );
 router.post(
-    '/add-item',
+    '/wishlist-item',
     authMiddleware.checkAccessToken,
     wishlistMiddleware.checkIsWishlistExist,
     itemMiddleware.checkIsItemExist,
     wishlistController.addWishlistItem,
 );
-router.delete('/delete-item/:cartItemId', authMiddleware.checkAccessToken, wishlistController.deleteWishlistItem);
+router.delete('/wishlist-item/:wishlistItemId', authMiddleware.checkAccessToken, wishlistController.deleteWishlistItem);
 
 export const wishlistRouter = router;

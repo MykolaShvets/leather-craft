@@ -13,12 +13,12 @@ router.get(
     cartController.getCartItems,
 );
 router.post(
-    '/add-item',
+    '/cart-items',
     authMiddleware.checkAccessToken,
     cartMiddleware.checkIsCartExist,
     itemMiddleware.checkIsItemExist,
     cartController.addCartItem,
 );
-router.delete('/delete-item/:cartItemId', authMiddleware.checkAccessToken, cartController.deleteCartItem);
+router.delete('/cart-items/:cartItemId', authMiddleware.checkAccessToken, cartController.deleteCartItem);
 
 export const cartRouter = router;

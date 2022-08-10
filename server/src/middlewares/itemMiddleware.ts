@@ -6,7 +6,7 @@ import { itemService } from '../services';
 class ItemMiddleware {
     public async checkIsItemExist(req: IRequestExtendet, res: Response, next: NextFunction) {
         try {
-            const itemId = req.body;
+            const { itemId } = req.body;
             const itemFromDb = await itemService.getById(itemId);
 
             if (!itemFromDb) {

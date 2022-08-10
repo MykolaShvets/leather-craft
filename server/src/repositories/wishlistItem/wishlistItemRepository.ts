@@ -6,7 +6,7 @@ import { AppDataSource } from '../../data-source';
 
 class WishlistItemRepository extends Repository<WishlistItem> implements IWishlistItemRepository {
     public async getWishlistItems(id: number): Promise<IWishlistItem[] | null> {
-        return AppDataSource.manager.getRepository(WishlistItem).find({ where: { id } });
+        return AppDataSource.manager.getRepository(WishlistItem).find({ where: { wishlistId: id } });
     }
 
     public async addWishlistItem(wishlistId: number, itemId: number): Promise<IWishlistItem> {

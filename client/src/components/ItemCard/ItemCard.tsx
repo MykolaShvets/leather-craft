@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import {
     Box,
-    Card, CardActions, CardContent, CardMedia, Divider, IconButton, Typography,
+    Card, CardActions, CardContent, CardMedia, Divider, Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { Add, Favorite, ShoppingCart } from '@mui/icons-material';
 import { IItem } from '../../interfaces/itemInterface';
 import { IItemProps } from '../../interfaces/itemPropertiesInterface';
+import ItemActionBtns from '../ItemActionBtns/ItemActionBtns';
 
 interface IAllItemProps {
     colors: IItemProps[];
@@ -17,7 +17,6 @@ interface IAllItemProps {
 
 const ItemCard: FC<{item: IItem, itemProps:IAllItemProps}> = ({ item, itemProps }) => {
     const { colors, materials, categories } = itemProps;
-
     const [category, setCategory] = useState<IItemProps | undefined>(undefined);
     const [color, setColor] = useState<IItemProps | undefined>(undefined);
     const [material, setMaterial] = useState<IItemProps | undefined>(undefined);
@@ -61,12 +60,10 @@ const ItemCard: FC<{item: IItem, itemProps:IAllItemProps}> = ({ item, itemProps 
                 </CardContent>
             </Link>
             <Divider />
-            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', p: '0px' }}>
-                <IconButton><Add /><ShoppingCart /></IconButton>
-                <IconButton><Favorite /></IconButton>
+            <CardActions sx={{ p: '0px' }}>
+                <ItemActionBtns itemId={item.id as number} />
             </CardActions>
         </Card>
     );
 };
 export default ItemCard;
-

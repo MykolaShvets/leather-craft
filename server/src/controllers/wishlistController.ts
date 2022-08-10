@@ -1,8 +1,8 @@
 import { Response } from 'express';
+import { DeleteResult } from 'typeorm';
 import { IRequestExtendet } from '../interfaces';
 import { IUser, IWishlist, IWishlistItem } from '../entity';
 import { wishlistService } from '../services';
-import { DeleteResult } from 'typeorm';
 
 class WishlistController {
     public async getWishlist(req: IRequestExtendet, res: Response): Promise<Response<IWishlist>> {
@@ -19,7 +19,7 @@ class WishlistController {
     public async getWishlistItems(req: IRequestExtendet, res: Response): Promise<Response<IWishlistItem[] | null>> {
         try {
             const { id } = req.wishlist as IWishlist;
-            const wishlistItems = wishlistService.getWishlistItems(+id);
+            const wishlistItems = await wishlistService.getWishlistItems(+id);
 
             return res.json(wishlistItems);
         } catch (e) {
