@@ -27,6 +27,11 @@ class ItemService {
         const deletedItem = await itemRepository.deleteById(itemId);
         return deletedItem;
     }
+
+    public async getWithPagination(page: number, limit: number, searchObject: Partial<IItem>) {
+        const items = await itemRepository.getItemByPage(searchObject, limit, page);
+        return items;
+    }
 }
 
 export const itemService = new ItemService();

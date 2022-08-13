@@ -3,6 +3,7 @@ import { IItem } from '../../interfaces/itemInterface';
 import { IItemProps } from '../../interfaces/itemPropertiesInterface';
 import { itemPropsService } from '../../services/itemPropsService';
 import { itemService } from '../../services/itemService';
+import { IFilterItems } from '../../interfaces/filterItemInterface';
 
 interface IInitialState {
     items: IItem[];
@@ -10,6 +11,7 @@ interface IInitialState {
     colors: IItemProps[];
     materials: IItemProps[];
     categories: IItemProps[];
+    filteredObject: IFilterItems | null;
     currentProps: {
         category: IItemProps | null;
         color: IItemProps | null;
@@ -23,6 +25,7 @@ const initialState: IInitialState = {
     categories: [],
     materials: [],
     colors: [],
+    filteredObject: null,
     currentProps: {
         category: null,
         color: null,
@@ -65,21 +68,34 @@ export const createNewItem = createAsyncThunk<void, IItem>(
         try {
             await itemService.addItem(item);
 
-            const { data } = await itemService.getAll();
+            const { data } = await itemService.getAll(1);
 
-            dispatch(SET_ITEMS({ items: data }));
+            dispatch(SET_ITEMS({ items: data.data }));
         } catch (e) {
             console.log(e);
         }
     },
 );
 
-export const getAllItems = createAsyncThunk(
+export const getAllItems = createAsyncThunk<void, {page: number}>(
     'itemSlice/getAllItems',
-    async (_, { dispatch }) => {
+    async ({ page }, { dispatch }) => {
         try {
-            const { data } = await itemService.getAll();
-            dispatch(SET_ITEMS({ items: data }));
+            const { data } = await itemService.getAll(page);
+            dispatch(SET_ITEMS({ items: data.data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
+export const getFilteredItems = createAsyncThunk<void, {page: number, filteredObject: IFilterItems}>(
+    'utemSlice/getFilteredItems',
+    async ({ page, filteredObject }, { dispatch }) => {
+        try {
+            const { data } = await itemService.getByFilter(page, filteredObject);
+
+            dispatch(SET_ITEMS({ items: data.data }));
         } catch (e) {
             console.log(e);
         }
@@ -124,11 +140,14 @@ const itemSlice = createSlice({
         SET_ITEM: (state, actions: PayloadAction<{item: IItem}>) => {
             state.item = actions.payload.item;
         },
+        SET_FILTER: (state, action: PayloadAction<{filter: IFilterItems | null}>) => {
+            state.filteredObject = action.payload.filter;
+        },
     },
 });
 
 export const itemReducer = itemSlice.reducer;
 
 export const {
-    SET_ITEM_PROPS, SET_CURRENT_PROPS, SET_ITEMS, SET_ITEM,
+    SET_ITEM_PROPS, SET_CURRENT_PROPS, SET_ITEMS, SET_ITEM, SET_FILTER,
 } = itemSlice.actions;

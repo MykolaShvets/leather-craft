@@ -72,6 +72,17 @@ class ItemController {
             return res.status(400).json(e);
         }
     }
+
+    // eslint-disable-next-line consistent-return
+    public async getAllItemsByPage(req: IRequestExtendet, res: Response): Promise<any> {
+        try {
+            const { page = 1, limit = 20, ...other } = req.query;
+            const items = await itemService.getWithPagination(+page, +limit, other);
+            return res.json(items);
+        } catch (e) {
+            res.status(400).json(e);
+        }
+    }
 }
 
 export const itemController = new ItemController();

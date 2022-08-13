@@ -2,6 +2,7 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { IItem, Item } from '../../entity';
 import { IItemRepository } from './itemRepositoryInterface';
 import { AppDataSource } from '../../data-source';
+import { IPaginationResponse } from '../../interfaces/pagnitionResponseInterface';
 
 class ItemRepository extends Repository<Item> implements IItemRepository {
     public async createItem(item: IItem): Promise<IItem> {
@@ -37,6 +38,24 @@ class ItemRepository extends Repository<Item> implements IItemRepository {
         return AppDataSource.manager
             .getRepository(Item)
             .softDelete({ id });
+    }
+
+    public async getItemByPage(
+        searchObject: Partial<IItem>,
+        limit: number,
+        page: number,
+    )
+        : Promise<IPaginationResponse<IItem>> {
+        const skip = limit * (page - 1);
+        const [items, totalCount] = await AppDataSource.manager
+            .getRepository(Item).findAndCount({ where: searchObject, skip, take: limit });
+
+        return {
+            page,
+            limit,
+            totalCount,
+            data: items,
+        };
     }
 }
 
