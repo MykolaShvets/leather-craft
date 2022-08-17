@@ -7,3 +7,4 @@ export * from './categoryService';
 export * from './colorService';
 export * from './materialService';
 export * from './itemService';
+export * from './commentsService';

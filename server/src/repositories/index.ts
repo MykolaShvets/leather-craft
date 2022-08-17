@@ -18,3 +18,5 @@ export * from './cartItem/cartItemRepository';
 export * from './cartItem/cartItemRepositoryInterface';
 export * from './wishlistItem/wishlistItemRepository';
 export * from './wishlistItem/wishlistItemRepositoryInterface';
+export * from './comments/commentsRepository';
+export * from './comments/commentsRepositoryInterface';

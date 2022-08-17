@@ -33,7 +33,6 @@ class ItemController {
     public async getById(req: IRequestExtendet, res: Response): Promise<Response<IItem>> {
         try {
             const itemId = req.params.id;
-            console.log(itemId);
             const item = await itemService.getById(+itemId);
             return res.json(item);
         } catch (e) {
@@ -73,14 +72,13 @@ class ItemController {
         }
     }
 
-    // eslint-disable-next-line consistent-return
-    public async getAllItemsByPage(req: IRequestExtendet, res: Response): Promise<any> {
+    public async getAllItemsByPage(req: IRequestExtendet, res: Response): Promise<Response<IItem>> {
         try {
             const { page = 1, limit = 20, ...other } = req.query;
             const items = await itemService.getWithPagination(+page, +limit, other);
             return res.json(items);
         } catch (e) {
-            res.status(400).json(e);
+            return res.status(400).json(e);
         }
     }
 }

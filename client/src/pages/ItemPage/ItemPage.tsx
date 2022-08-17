@@ -1,17 +1,20 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import {
-    Box, Divider, Paper, Typography,
+    Box, Divider, Modal, Paper, Typography,
 } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCurrentItem, getCurrentProps } from '../../store/slice/itemSlice';
 import ItemActionBtns from '../../components/ItemActionBtns/ItemActionBtns';
+import ItemsForm from '../../components/ItemsForm/ItemsForm';
 
 const ItemPage: FC = () => {
     const {
         item, currentProps,
     } = useAppSelector((state) => state.itemReducer);
+
+    const [isEdit, setIsEdit] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
 
@@ -22,7 +25,7 @@ const ItemPage: FC = () => {
         () => {
             dispatch(getCurrentItem(Number(itemId)));
         },
-        [],
+        [isEdit],
     );
 
     useEffect(
@@ -84,8 +87,26 @@ const ItemPage: FC = () => {
                                 && <Typography sx={{ textDecorationLine: 'line-through' }}>{item.price} USD</Typography>}
                         </Box>
                         <Divider />
-                        <ItemActionBtns itemId={item.id as number} />
+                        <ItemActionBtns itemId={item.id as number} setIsEdit={setIsEdit} />
                     </Paper>
+                    <Modal
+                        open={isEdit}
+                        onClose={() => setIsEdit(false)}
+                    >
+                        <Box sx={{
+                            width: { xs: '100vw', md: '60vw' },
+                            height: { xs: '100vh', md: '60vh' },
+                            position: 'absolute' as 'absolute',
+                            top: { xs: 0, md: '20%' },
+                            left: { xs: 0, md: '20%' },
+                            bgcolor: 'background.paper',
+                            boxShadow: 24,
+                            p: 4,
+                        }}
+                        >
+                            <ItemsForm isEdit={isEdit} setIsEdit={setIsEdit} />
+                        </Box>
+                    </Modal>
                 </Box>
             )}
         </Box>

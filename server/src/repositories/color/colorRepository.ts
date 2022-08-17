@@ -36,5 +36,4 @@ class ColorRepository extends Repository<Color> implements IColorRepository {
     }
 }
 
-// @ts-ignore
-export const colorRepository = new ColorRepository();
+export const colorRepository = new ColorRepository(Color, AppDataSource.manager);

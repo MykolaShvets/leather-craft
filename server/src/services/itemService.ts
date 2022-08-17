@@ -1,5 +1,6 @@
 import { UpdateResult } from 'typeorm';
 import { IItem } from '../entity';
+import { IPaginationResponse } from '../interfaces';
 import { itemRepository } from '../repositories';
 
 class ItemService {
@@ -28,7 +29,8 @@ class ItemService {
         return deletedItem;
     }
 
-    public async getWithPagination(page: number, limit: number, searchObject: Partial<IItem>) {
+    public async getWithPagination(page: number, limit: number, searchObject: Partial<IItem>)
+    : Promise<IPaginationResponse<IItem>> {
         const items = await itemRepository.getItemByPage(searchObject, limit, page);
         return items;
     }

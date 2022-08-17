@@ -12,6 +12,7 @@ interface IInitialState {
     materials: IItemProps[];
     categories: IItemProps[];
     filteredObject: IFilterItems | null;
+    itemPage: number;
     currentProps: {
         category: IItemProps | null;
         color: IItemProps | null;
@@ -26,6 +27,7 @@ const initialState: IInitialState = {
     materials: [],
     colors: [],
     filteredObject: null,
+    itemPage: 1,
     currentProps: {
         category: null,
         color: null,
@@ -108,6 +110,34 @@ export const getCurrentItem = createAsyncThunk(
         try {
             const { data } = await itemService.getById(id);
             dispatch(SET_ITEM({ item: data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
+export const editItem = createAsyncThunk<void, {editedItem: IItem, id: number, page: number}>(
+    'itemSlice/editItem',
+    async ({ editedItem, id, page }, { dispatch }) => {
+        try {
+            await itemService.editById(editedItem, id);
+
+            const { data } = await itemService.getById(id);
+            dispatch(SET_ITEM({ item: data }));
+        } catch (e) {
+            console.log(e);
+        }
+    },
+);
+
+export const deleteItem = createAsyncThunk<void, {id: number, page: number}>(
+    'itemSloice/deleteItem',
+    async ({ id, page }, { dispatch }) => {
+        try {
+            await itemService.deleteById(id);
+
+            const { data } = await itemService.getAll(page);
+            dispatch(SET_ITEMS({ items: data.data }));
         } catch (e) {
             console.log(e);
         }

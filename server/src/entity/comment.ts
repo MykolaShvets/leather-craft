@@ -1,6 +1,9 @@
-import { Column, Entity } from 'typeorm';
+import {
+    Column, Entity, JoinColumn, ManyToOne,
+} from 'typeorm';
 
 import { CommonFields } from './commonFields';
+import { User } from './user';
 
 export interface IComment{
     id: number;
@@ -36,4 +39,8 @@ export class Comment extends CommonFields implements IComment {
         nullable: false,
     })
         description: string;
+
+    @ManyToOne(() => User)
+    @JoinColumn({ name: 'userId' })
+        user: User;
 }

@@ -19,9 +19,7 @@ import { SET_FILTER } from '../../store/slice/itemSlice';
 const ShopSidebar = () => {
     const { register, handleSubmit } = useForm<IFilterItems>();
     const [isShopSidebar, setIsShopSidebar] = useState<boolean>(false);
-    const {
-        categories, colors, materials,
-    } = useAppSelector(
+    const { categories, colors, materials } = useAppSelector(
         (state) => state.itemReducer,
     );
     const dispatch = useAppDispatch();
@@ -39,7 +37,7 @@ const ShopSidebar = () => {
     };
 
     return (
-        <Box>
+        <Box sx={{ marginBottom: '10px' }}>
             <IconButton onClick={handleShopSidebar}>
                 <FilterList />
             </IconButton>
