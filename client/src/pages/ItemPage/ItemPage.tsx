@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCurrentItem, getCurrentProps } from '../../store/slice/itemSlice';
 import ItemActionBtns from '../../components/ItemActionBtns/ItemActionBtns';
 import ItemsForm from '../../components/ItemsForm/ItemsForm';
+import ItemComments from '../../components/ItemComments/ItemComments';
 
 const ItemPage: FC = () => {
     const {
@@ -42,7 +43,7 @@ const ItemPage: FC = () => {
     );
 
     return (
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             { item && (
                 <Box sx={{
                     display: 'flex',
@@ -50,7 +51,6 @@ const ItemPage: FC = () => {
                     gap: '50px',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: 'calc(100vh - 90px)',
                 }}
                 >
                     <Box sx={{ position: 'relative', width: '400px' }}>
@@ -109,6 +109,9 @@ const ItemPage: FC = () => {
                     </Modal>
                 </Box>
             )}
+            <Box>
+                <ItemComments />
+            </Box>
         </Box>
     );
 };

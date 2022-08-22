@@ -19,7 +19,9 @@ import { SET_FILTER } from '../../store/slice/itemSlice';
 const ShopSidebar = () => {
     const { register, handleSubmit } = useForm<IFilterItems>();
     const [isShopSidebar, setIsShopSidebar] = useState<boolean>(false);
-    const { categories, colors, materials } = useAppSelector(
+    const {
+        categories, colors, materials, filteredObject,
+    } = useAppSelector(
         (state) => state.itemReducer,
     );
     const dispatch = useAppDispatch();
@@ -58,7 +60,7 @@ const ShopSidebar = () => {
                             <InputLabel id="category">Category</InputLabel>
                             <Select
                                 labelId="category"
-                                defaultValue=""
+                                defaultValue={filteredObject ? filteredObject.categoryId : ''}
                                 {...register('categoryId')}
                                 label="Category"
                             >
@@ -73,7 +75,7 @@ const ShopSidebar = () => {
                             <InputLabel id="material">Material</InputLabel>
                             <Select
                                 labelId="material"
-                                defaultValue=""
+                                defaultValue={filteredObject ? filteredObject.materialId : ''}
                                 {...register('materialId')}
                                 label="Material"
                             >
@@ -88,7 +90,7 @@ const ShopSidebar = () => {
                             <InputLabel id="color">Color</InputLabel>
                             <Select
                                 labelId="color"
-                                defaultValue=""
+                                defaultValue={filteredObject ? filteredObject.colorId : ''}
                                 {...register('colorId')}
                                 label="Color"
                             >

@@ -16,6 +16,10 @@ class UserRepository extends Repository<User> implements IUserRepository {
             .getMany();
     }
 
+    public async getById(id: number): Promise<IUser | null> {
+        return AppDataSource.manager.getRepository(User).findOne({ where: { id } });
+    }
+
     public async getByEmail(email: string): Promise<IUser | null> {
         return AppDataSource.manager
             .getRepository(User)
@@ -43,5 +47,4 @@ class UserRepository extends Repository<User> implements IUserRepository {
     }
 }
 
-// @ts-ignore
-export const userRepository = new UserRepository();
+export const userRepository = new UserRepository(User, AppDataSource.manager);

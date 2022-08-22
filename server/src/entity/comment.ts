@@ -28,7 +28,6 @@ export class Comment extends CommonFields implements IComment {
     @Column({
         type: 'varchar',
         width: 250,
-        unique: true,
         nullable: false,
     })
         title: string;

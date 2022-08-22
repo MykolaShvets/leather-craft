@@ -24,6 +24,18 @@ class UserController {
         return res.json(allUsers);
     }
 
+    public async getById(req: Request, res: Response): Promise<Response<IUser>> {
+        try {
+            const { id } = req.params;
+
+            const userById = await userService.getById(+id);
+
+            return res.json(userById);
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    }
+
     public async getByEmail(req: IRequestExtendet, res: Response): Promise<Response<IUser>> {
         const { role } = req.user as IUser;
 
