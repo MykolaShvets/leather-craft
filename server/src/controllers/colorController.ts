@@ -18,7 +18,6 @@ class ColorController {
     public async getById(req: Request, res: Response): Promise<Response<IColor>> {
         try {
             const { id } = req.params;
-
             const color = await colorService.getById(+id);
             return res.json(color);
         } catch (e) {
@@ -29,6 +28,7 @@ class ColorController {
     public async createColor(req: IRequestExtendet, res: Response): Promise<Response<IColor>> {
         try {
             const { role } = req.user as IUser;
+
             if (role !== 'admin') {
                 throw new Error('You are not admin!!!');
             }
@@ -44,6 +44,7 @@ class ColorController {
     public async updateById(req: IRequestExtendet, res: Response): Promise<Response<IColor>> {
         try {
             const { role } = req.user as IUser;
+
             if (role !== 'admin') {
                 throw new Error('You are not admin!!!');
             }
@@ -58,6 +59,7 @@ class ColorController {
 
     public async deleteById(req: IRequestExtendet, res: Response): Promise<Response<DeleteResult>> {
         const { role } = req.user as IUser;
+
         if (role !== 'admin') {
             throw new Error('You are not admin!!!');
         }

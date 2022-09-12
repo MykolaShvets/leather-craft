@@ -20,3 +20,5 @@ export * from './wishlistItem/wishlistItemRepository';
 export * from './wishlistItem/wishlistItemRepositoryInterface';
 export * from './comments/commentsRepository';
 export * from './comments/commentsRepositoryInterface';
+export * from './rate/rateRepository';
+export * from './rate/rateRepositoryInterface';

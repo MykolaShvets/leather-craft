@@ -9,6 +9,7 @@ import { colorRouter } from './colorRouter';
 import { materialRouter } from './materialRouter';
 import { itemRouter } from './itemRouter';
 import { commentRouter } from './commentRouter';
+import { rateRouter } from './rateRouter';
 
 const router = Router();
 
@@ -21,5 +22,6 @@ router.use('/colors', colorRouter);
 router.use('/materials', materialRouter);
 router.use('/items', itemRouter);
 router.use('/comments', commentRouter);
+router.use('/rates', rateRouter);
 
 export const apiRouter = router;

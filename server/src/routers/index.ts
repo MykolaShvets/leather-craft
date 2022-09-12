@@ -7,3 +7,4 @@ export * from './colorRouter';
 export * from './materialRouter';
 export * from './itemRouter';
 export * from './commentRouter';
+export * from './rateRouter';

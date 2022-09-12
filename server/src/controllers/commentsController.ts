@@ -1,5 +1,6 @@
 import { Response } from 'express';
 import { DeleteResult } from 'typeorm';
+
 import { IComment, IUser } from '../entity';
 import { IRequestExtendet } from '../interfaces';
 import { commentsService } from '../services';
@@ -9,7 +10,6 @@ class CommentsController {
         try {
             const { id } = req.user as IUser;
             const comment = req.body;
-
             const newComment = await commentsService.createComment(id, comment);
             return res.json(newComment);
         } catch (e) {

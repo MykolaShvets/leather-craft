@@ -8,3 +8,4 @@ export * from './colorService';
 export * from './materialService';
 export * from './itemService';
 export * from './commentsService';
+export * from './rateService';

@@ -6,3 +6,4 @@ export * from './categoryController';
 export * from './colorController';
 export * from './materialController';
 export * from './commentsController';
+export * from './rateController';

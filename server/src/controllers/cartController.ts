@@ -20,9 +20,7 @@ class CartController {
         try {
             const cartId = req.cart?.id as number;
             const itemId = req.item?.id as number;
-
             const newCartItem = cartService.addCartItem(cartId, itemId);
-
             return res.json(newCartItem);
         } catch (e) {
             return res.status(400).json(e);
@@ -42,7 +40,6 @@ class CartController {
     public async deleteCartItem(req: IRequestExtendet, res: Response): Promise<Response<DeleteResult>> {
         try {
             const { cartItemId } = req.params;
-
             const deletedCartItem = await cartService.deleteCartItem(+cartItemId);
             return res.json(deletedCartItem);
         } catch (e) {

@@ -10,4 +10,5 @@ export const urls = {
     carts: '/carts',
     wishlists: '/wishlists',
     comments: '/comments',
+    rates: '/rates',
 };

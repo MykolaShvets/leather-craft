@@ -5,11 +5,9 @@ import { commentsService } from '../../services/commentsService';
 interface IInitialState {
     itemComments: IComment[];
     userComments: IComment[];
-    comment: IComment | null;
 }
 
 const initialState: IInitialState = {
-    comment: null,
     itemComments: [],
     userComments: [],
 };

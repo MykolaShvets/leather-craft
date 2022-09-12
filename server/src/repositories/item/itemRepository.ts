@@ -1,8 +1,9 @@
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+
 import { IItem, Item } from '../../entity';
 import { IItemRepository } from './itemRepositoryInterface';
 import { AppDataSource } from '../../data-source';
-import { IPaginationResponse } from '../../interfaces/pagnitionResponseInterface';
+import { IPaginationResponse } from '../../interfaces';
 
 class ItemRepository extends Repository<Item> implements IItemRepository {
     public async createItem(item: IItem): Promise<IItem> {

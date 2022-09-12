@@ -5,6 +5,7 @@ import { itemReducer } from './slice/itemSlice';
 import { cartReducer } from './slice/cartSlice';
 import { wishlistReducer } from './slice/wishlistSlice';
 import { commentReducer } from './slice/commentSlice';
+import { rateReducer } from './slice/rateSlice';
 
 const rootReducer = combineReducers({
     userReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     cartReducer,
     wishlistReducer,
     commentReducer,
+    rateReducer,
 });
 
 export const setupStore = () => configureStore({
